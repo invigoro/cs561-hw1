@@ -7,12 +7,3 @@ const positions = new Float32Array([
    0.5, -0.866, 0.0,  // vertex 2
    0.0, 0.0, 0.0   // vertex 3
 ]);
-
-var colors = new Float32Array([
-  1.0, 1.0, 1.0,  // White
-  1.0, 1.0, 1.0,  // White
-  1.0, 1.0, 1.0,   // White
-  1.0, 1.0, 1.0,   // White
-  1.0, 1.0, 1.0,   // White
-  1.0, 1.0, 1.0   // White
-]);

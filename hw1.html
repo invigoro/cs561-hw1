@@ -117,6 +117,7 @@
 
     let program, posLoc, colorLoc, timeLoc, rotationLoc, translationLoc, randColorLoc;
     let posBuffer, colorBuffer;
+    var colors = getRandomRgb(positions.length);
 
     // --- Buffers ---
     function initBuffers() {
@@ -146,23 +147,23 @@
 
     function getRandomRgb(length) {
       let result = new Float32Array(length);
-      for(i = 0; i < length; i++){
+      for (i = 0; i < length; i++) {
         result[i] = Math.random();
       }
       return result;
     }
 
     function interpolateColors(prevColors, targetColors, lastColorChange, colorChangeInterval) {
-    const t = lastColorChange / colorChangeInterval;
-    const arraySize = prevColors.length;
-    const result = new Float32Array(arraySize); // Assuming 3x3 matrix = 9 elements
+      const t = lastColorChange / colorChangeInterval;
+      const arraySize = prevColors.length;
+      const result = new Float32Array(arraySize); // Assuming 3x3 matrix = 9 elements
 
-    for (let i = 0; i < arraySize; i++) {
+      for (let i = 0; i < arraySize; i++) {
         result[i] = (1 - t) * prevColors[i] + t * targetColors[i];
-    }
+      }
 
-    return result;
-}
+      return result;
+    }
 
 
     initShaderProgram();
@@ -198,9 +199,9 @@
       //delta time in ms
       frameTime = Date.now() - (deltaTime + startTime); //time since last update
       deltaTime = Date.now() - startTime;
-      lastColorChange += (frameTime/1000.0);
+      lastColorChange += (frameTime / 1000.0);
       //set time in seconds
-      gl.uniform1f(timeLoc, deltaTime/1000.0);
+      gl.uniform1f(timeLoc, deltaTime / 1000.0);
 
       //Rotation
       let rotationSpeed = 0.1;
@@ -213,9 +214,9 @@
 
       // Create the 4x4 rotation matrix (column-major order for webgl)
       let rotationMatrix = [
-        cos,  sin,  0.0,
-        -sin,  cos,  0.0,
-        0.0,  0.0,  1.0,
+        cos, sin, 0.0,
+        -sin, cos, 0.0,
+        0.0, 0.0, 1.0,
       ];
       gl.uniformMatrix3fv(rotationLoc, false, rotationMatrix);
 
@@ -234,7 +235,7 @@
 
       //random colors
       let colorChangeSpeed = 0.1;
-      if(lastColorChange >= colorChangeInterval) {
+      if (lastColorChange >= colorChangeInterval) {
         lastColorChange -= colorChangeInterval;
         prevColors = targetColors;
         targetColors = getRandomRgb(colors.length);
